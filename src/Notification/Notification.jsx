@@ -1,22 +1,15 @@
-import style from './Notification.module.css';
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import shortid from 'shortid';
+import React from 'react';
 
-class Notification extends Component {
-  static defaultProps = {
-    message: ' ',
-  };
-  static propTypes = {
-    Message: PropTypes.string,
-  };
-  render() {
-    return (
-      <h2 key={shortid.generate()} className={style.notification}>
-        {this.props.message}
-      </h2>
-    );
-  }
-}
+import { PropTypes } from 'prop-types';
+
+import styles from './Notification.module.css';
+
+const Notification = ({ message }) => (
+  <div className={styles.notification}>{message}</div>
+);
+
+Notification.propTypes = {
+  message: PropTypes.string.isRequired,
+};
 
 export default Notification;

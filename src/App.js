@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import FeedbackOptions from './Feedback/FeedbackOptions';
+import Statistics from './Statistics/Statistics';
+import Notification from './Notification/Notification';
 
 class App extends Component {
   state = {
@@ -23,16 +25,43 @@ class App extends Component {
       return acc;
     });
   };
+  countZero = () => {
+    if (
+      this.state.good === 0 &&
+      this.state.neutral === 0 &&
+      this.state.bad === 0
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+  countPositiveFeedbackPercentage = () => {
+    return Math.trunc((this.state.good / this.countTotalFeedback()) * 100);
+  };
 
   render() {
     const btnNames = Object.keys(this.state);
     return (
-      <div className="App">
-        <section>
+      <div>
+        <section title="Please leave your feedback">
           <FeedbackOptions
             options={btnNames}
             onLeaveFeedback={this.onLeaveFeedback}
           />
+        </section>
+        <section title="Statistics">
+          {this.countZero() ? (
+            <Notification message="No feedback given" />
+          ) : (
+            <Statistics
+              good={this.state.good}
+              neutral={this.state.neutral}
+              bad={this.state.bad}
+              total={this.countTotalFeedback()}
+              positivePercentage={this.countPositiveFeedbackPercentage()}
+            />
+          )}
         </section>
       </div>
     );
