@@ -15,7 +15,7 @@ class FeedbackOptions extends Component {
     return (
       <div className={style.message}>
         <h1 className={style.message__title}>Please leave feedback</h1>
-        <div className={style.message__buttons}>
+        <div className={style.message__section}>
           {this.props.options.map(btn => (
             <button
               className={style.message_buttons}
